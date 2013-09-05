@@ -41,6 +41,7 @@ Initialize database tables and copy static files:
 Add a generic relation field to your model:
 
     from django_attach.models import Attachment
+    from django.contrib.contenttypes.generic import GenericRelation
     ...
 
     class MyModel(models.Model):
