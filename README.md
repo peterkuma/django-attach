@@ -146,4 +146,5 @@ Security considerations
 License
 -------
 
-django-attach is released under the BSD License (see LICENSE for details).
+django-attach is released under the BSD License.
+See LICENSE and LICENSE.third-party for details.
