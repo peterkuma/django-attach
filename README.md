@@ -6,7 +6,7 @@ with multiple file selection support. Its main feature is a custom admin inline
 form. Requires a modern browser supporting HTML5 and XMLHttpRequest2,
 but falls back to the plain django inline form when these are not available.
 
-Features:
+### Features:
 
 * Mutiple file selection.
 * Files are not uploaded or deleted until the form is submitted.
@@ -20,11 +20,11 @@ Features:
 Installation
 ------------
 
-Install using setup.py:
+Install using `setup.py`:
 
     python setup.py install
 
-Add the application to settings.py:
+Add the application to `settings.py`:
 
     INSTALLED_APPS = (
         ...
@@ -49,7 +49,8 @@ Add a generic relation field to your model:
 
 This is how you can access attachments in your program.
 
-In admin.py of your application, add AttachmentInline to the list of inlines.
+In `admin.py` of your application, add `AttachmentInline` to the list of
+inlines:
 
     from django_attach.forms import AttachmentInline
     ...
@@ -59,7 +60,7 @@ In admin.py of your application, add AttachmentInline to the list of inlines.
 
 In the admin, you should be able to see the attachment inline under the
 change and add pages of your model. You should also see a new application
-Django_Attach, where you can edit the raw attachments and temporary groups
+Django_Attach, where you can edit the raw attachments and temporary objects
 (described below) if you ever need to.
 
 It is up to you to implement a meaningful way in which the attachments are
@@ -76,14 +77,16 @@ Reference
 ### class Attachment(Model)
 
 Attachment objects hold individual files. They are associated with arbitrary
-model instances via the contenttypes framework.
+model instances via the
+[contenttypes](https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/)
+framework.
 
-- Attachment.**file** - attachment file.
-- Attachment.**content_object** - object associated with the attachment.
-- Attachment.**content_type** - ID of ContentType of the associated model.
-- Attachment.**object_id** - primary key of the associated model.
-- Attachment.**created** - datetime when attachment was created.
-- Attachment.**modified** - datatime when attachment was last modified.
+- **file** - attachment file.
+- **content_object** - object associated with the attachment.
+- **content_type** - ID of ContentType of the associated model.
+- **object_id** - primary key of the associated model.
+- **created** - datetime when attachment was created.
+- **modified** - datatime when attachment was last modified.
 
 You should not rely on file, content\_object, content\_type and object\_id
 not being null.
@@ -93,9 +96,9 @@ not being null.
 Temporary objects. Files attached to instances yet to be saved are associated
 with temporary objects. They are removed once the instance is saved.
 
-- Temporary.**attachments** - attachments associated with the temporary object.
-- Temporary.**created** - datetime when temporary object was created.
-- Temporary.**modified** - datetime when temporary object was last modified.
+- **attachments** - attachments associated with the temporary object.
+- **created** - datetime when temporary object was created.
+- **modified** - datetime when temporary object was last modified.
 
 ### Settings
 
