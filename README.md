@@ -49,7 +49,7 @@ Add a generic relation field to your model:
 
 This is how you can access attachments in your program.
 
-In `admin.py` of your application, add `AttachmentInline` to the list of
+In `admin.py` of your application, add **AttachmentInline** to the list of
 inlines:
 
     from django_attach.forms import AttachmentInline
@@ -81,6 +81,8 @@ model instances via the
 [contenttypes](https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/)
 framework.
 
+#### Fields:
+
 - **file** - attachment file.
 - **content_object** - object associated with the attachment.
 - **content_type** - ID of ContentType of the associated model.
@@ -95,6 +97,8 @@ not being null.
 
 Temporary objects. Files attached to instances yet to be saved are associated
 with temporary objects. They are removed once the instance is saved.
+
+#### Fields:
 
 - **attachments** - attachments associated with the temporary object.
 - **created** - datetime when temporary object was created.
