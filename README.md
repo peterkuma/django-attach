@@ -118,7 +118,7 @@ How it works
 File selection upon clicking Attach button is implemented using a hidden
 `<input type="file" multiple="true">`. Files are uploaded asynchronously
 when the model form is submitted. If the instance is yet to be created,
-they are associated with a new **Temporary** object. Once the model instance
+they are associated with a new Temporary object. Once the model instance
 is saved, they are re-attached to the instance, and moved in the file storage
 to the appropriate location (`MEDIA_ROOT/attachment/<model>/<id>/`).
 File deletion is implemented using the ordinary hidden *-DELETE fields
@@ -130,7 +130,7 @@ Known issues
 * Stale files (uploaded via the add page of your model, but whose associated
 model instance was not eventually saved) need to be removed manually in the
 Django_Attach application in the admin. This can be done by removing the old
-**Temporary objects** they are attached to.
+Temporary objects they are attached to.
 * django-attach is not yet fully translatable.
 
 Security considerations
