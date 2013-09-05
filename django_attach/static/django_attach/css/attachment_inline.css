@@ -1,0 +1,45 @@
+.attachment-inline .attachment {
+    padding: 1em;
+}
+
+.attachment-inline .attachment .delete {
+    width: 10px;
+    height: 10px;
+    background: url(../../admin/img/icon_deletelink.gif) no-repeat;
+    vertical-align: middle;
+    display: none;
+    cursor: pointer;
+}
+
+.attachment-inline .attachment:hover .delete {
+    display: inline-block;
+    margin-left: 0.3em;
+}
+
+.attachment-inline .attach {
+    margin: 1em;
+}
+
+.attachment-inline .error {
+    color: #d40000;
+    font-weight: bold;
+    background: #ffc0c0;
+    padding: 1em;
+}
+
+.attachment-inline .error a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.attachment-inline .note {
+    color: #0169c9;
+    font-weight: bold;
+    background: #d3eaff;
+    padding: 1em;
+}
+
+.attachment-inline .note a {
+    color: inherit;
+    text-decoration: underline;
+}
