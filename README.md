@@ -20,8 +20,11 @@ but falls back to the plain django inline form when these are not available.
 Installation
 ------------
 
-Install using `setup.py`:
+Install from PyPI or with `setup.py`:
 
+    pip install django-attach
+
+    # Alternatively:
     python setup.py install
 
 Add the application to `settings.py`:
