@@ -1,0 +1,31 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}
+
+.container {
+    width: 600px;
+    margin: 2em auto 4em auto;
+}
+
+h1 {
+    font-size: 300%;
+}
+
+h2 {
+    margin-top: 1em;
+    padding-bottom: 0.2em;
+    border-bottom: 1px solid #888;
+}
+
+h1 a,h2 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+pre code {
+    display: block;
+    border-left: 8px solid #eee;
+    padding: 0.5em 1em;
+    white-space: pre-wrap;
+}

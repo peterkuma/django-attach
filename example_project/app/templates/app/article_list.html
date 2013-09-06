@@ -1,0 +1,16 @@
+{% extends "app/base.html" %}
+{% load markup %}
+{% load baseurl %}
+
+{% block content %}
+    {% for article in object_list %}
+        <h2><a href="/article/{{ article.pk }}/">{{ article.title }}</a></h2>
+        <article>
+            {{ article.content|markdown|baseurl:article.get_absolute_url }}
+        </article>
+        <div class="source">
+            <h3>Source:</h3>
+            <pre><code>{{ article.content }}</code></pre>
+        </div>
+    {% endfor %}
+{% endblock %}
