@@ -75,9 +75,9 @@ under one URL).
 Example
 -------
 
-[example_project](tree/master/example_project) is an example django project
-demonstrating the use of django-attach. Please see `example_project/README.md`
-for more information.
+Directory [example_project](example_project) contains an example
+django project demonstrating the use of django-attach.
+Please see `example_project/README.md` for more information.
 
 Reference
 ---------
