@@ -150,9 +150,22 @@ Security considerations
 * django-attach has not yet been well tested with respect to honoring
   django admin model permissions.
 
-
 License
 -------
 
 django-attach is released under the BSD License.
 See `LICENSE` and `LICENSE.third-party` for details.
+
+Screenshots
+-----------
+
+AttachmentInline displays a list of attachments on a model change page.
+Attachments can be added by clicking the `Attach file` button, and removed
+by clicking a cross next to a file name.
+
+![](https://github.com/peterkuma/django-attach/raw/master/screenshots/1.png)
+
+New attachments are uploaded asynchronously when form is submitted. Upload
+progress is shown.
+
+![](https://github.com/peterkuma/django-attach/raw/master/screenshots/2.png)
