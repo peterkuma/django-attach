@@ -1,4 +1,7 @@
 include LICENSE
+include LICENSE.third-party
 include README.md
 recursive-include django_attach/static *
 recursive-include django_attach/templates *
+recursive-include example_project *
+recursive-include screenshots *
