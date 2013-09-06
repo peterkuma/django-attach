@@ -72,6 +72,13 @@ You may also need to pipe the HTML content through a filter which modifies
 the relative links to absolute links (if you display multiple models
 under one URL).
 
+Example
+-------
+
+[example_project](tree/master/example_project) is an example django project
+demonstrating the use of django-attach. Please see `example_project/README.md`
+for more information.
+
 Reference
 ---------
 
