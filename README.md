@@ -72,6 +72,31 @@ You may also need to pipe the HTML content through a filter which modifies
 the relative links to absolute links (if you display multiple models
 under one URL).
 
+Browser support
+---------------
+
+This is an early release of django-attach. As such, it has not been tested
+thoroughly on many browsers.
+
+**Known to work:**
+
+* Firefox 23
+* Chromium 27
+
+**Partial:**
+
+* Safari 6 on Mountain Lion (allows selection of only 1 file at a time)
+
+**Fallback to classic formset inline:**
+
+* IE7
+* IE8
+* IE9
+
+**Broken:**
+
+* IE10
+
 Example
 -------
 
