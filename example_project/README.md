@@ -23,7 +23,7 @@ The field
     attachments = GenericRelation(Attachment)
 
 gives you access to the attached files. The ArticleAdmin class lists
-**`AttachmentInline`** in `inlines`, which ensures that a custom django-attach
+**AttachmentInline** in `inlines`, which ensures that a custom django-attach
 inline formset is shown on the change page of the model in the admin interface.
 
 There are three views defined: `ArticleList`, `ArticleDetail` and `attachment`.
@@ -32,7 +32,7 @@ displays a single article under `/article/<pk>/`, and `attachment` is
 responsible for serving attachments at `/article/<pk>/<name>`. Attachments can
 therefore be referenced by their simple name when shown by `ArticleDetail`.
 However, the overview of articles requires that the links are converted to their
-absolute counterparts. This is done by the **`baseurl`** filter
+absolute counterparts. This is done by the **baseurl** filter
 (`app/templatetags/baseurl.py`).
 
 `baseurl` uses [BeautifulSoup](https://pypi.python.org/pypi/BeautifulSoup)
