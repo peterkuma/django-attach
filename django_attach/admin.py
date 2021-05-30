@@ -17,7 +17,7 @@ class TemporaryAdmin(admin.ModelAdmin):
 
 
 class AttachmentAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'content_object', 'created', 'modified')
+    list_display = ('__str__', 'content_object', 'created', 'modified')
     list_filter = ('content_type',)
     fields = ('id', 'created', 'modified', 'content_type', 'object_id', 'file')
     readonly_fields = ('id', 'created', 'modified')
@@ -30,7 +30,7 @@ class AttachmentAdmin(admin.ModelAdmin):
           request.META.get('HTTP_ACCEPT') == 'application/json':
 
         # if request.method == 'POST':
-            AttachmentForm = modelform_factory(Attachment)
+            AttachmentForm = modelform_factory(Attachment, exclude=[])
             form = AttachmentForm(request.POST, request.FILES)
             if form.is_valid():
                 attachment = form.save(commit=False)
@@ -50,7 +50,7 @@ class AttachmentAdmin(admin.ModelAdmin):
                     'errors': form.errors
                 }), content_type='application/json')
         else:
-            return super(AttachmentAdmin, self).add_view(
+            return super().add_view(
                 request,
                 form_url,
                 extra_context=extra_context

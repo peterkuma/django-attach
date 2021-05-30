@@ -224,7 +224,7 @@ function AttachmentInline(el, prefix) {
         form_data.append('file', attachment.file);
 
         var req = new XMLHttpRequest();
-        req.open('POST',  '../../../django_attach/attachment/add/');
+        req.open('POST',  '../../../../django_attach/attachment/add/');
         req.upload.onprogress = onprogress;
         req.setRequestHeader('Accept', 'application/json');
         req.setRequestHeader('X-CSRFToken', form.elements['csrfmiddlewaretoken'].value);

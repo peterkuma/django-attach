@@ -1,11 +1,11 @@
 import re
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 from django import template
 
 
 register = template.Library()
 
-@register.filter
+@register.filter(is_safe=True)
 def baseurl(html, base):
     if not base.endswith('/'):
         base += '/'
@@ -36,5 +36,4 @@ def baseurl(html, base):
         e['style'] = re.sub(r'''(url\(\s*")([^\s\"]*)("\s*\))''', func, e['style'])
         e['style'] = re.sub(r'''(url\(\s*')([^\s\']*)('\s*\))''', func, e['style'])
 
-    return unicode(soup)
-baseurl.is_safe = True
+    return str(soup)

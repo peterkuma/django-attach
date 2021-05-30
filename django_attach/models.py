@@ -4,7 +4,7 @@ import os
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import *
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.generic import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from django.conf import settings
@@ -17,8 +17,8 @@ def attachment_file_upload_to(instance, filename):
     return os.path.join(
         root,
         instance.content_type.app_label,
-        unicode(instance.content_type.model),
-        unicode(instance.object_id),
+        str(instance.content_type.model),
+        str(instance.object_id),
         filename
     )
 
@@ -32,7 +32,8 @@ class Attachment(Model):
         ContentType,
         verbose_name=_('content type'),
         null=True,
-        blank=True
+        blank=True,
+        on_delete=CASCADE,
     )
     object_id = PositiveIntegerField(
         _('object ID'),
@@ -44,9 +45,9 @@ class Attachment(Model):
     created = DateTimeField(_('created'), auto_now_add=True)
     modified = DateTimeField(_('modified'), auto_now=True)
 
-    def __unicode__(self):
+    def __str__(self):
         if self.file:
-            return unicode(self.file.name)
+            return str(self.file.name)
         else:
             return u'Attachment object'
 
@@ -69,7 +70,7 @@ class Attachment(Model):
             except IOError:
                 pass
 
-        return super(Attachment, self).save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
 
 @receiver(pre_delete, sender=Attachment)

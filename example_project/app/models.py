@@ -1,6 +1,6 @@
 from django.db import models
-from django.core.urlresolvers import reverse
-from django.contrib.contenttypes.generic import GenericRelation
+from django.urls import reverse
+from django.contrib.contenttypes.fields import GenericRelation
 from django_attach.models import Attachment
 
 

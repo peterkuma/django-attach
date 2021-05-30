@@ -5,7 +5,7 @@ This is an example django project demonstrating how to use django-attach.
 The project requires markdown and BeautifulSoup to run properly:
 
     pip install markdown
-    pip install BeautifulSoup
+    pip install beautifulsoup4
 
 You can run the server in the usual way:
 
@@ -35,7 +35,7 @@ However, the overview of articles requires that the links are converted to their
 absolute counterparts. This is done by the **baseurl** filter
 (`app/templatetags/baseurl.py`).
 
-`baseurl` uses [BeautifulSoup](https://pypi.python.org/pypi/BeautifulSoup)
+`baseurl` uses [beautifulsoup](https://pypi.python.org/pypi/beautifulsoup4)
 to extend references to attachments in links, images and style attributes.
 Feel free to use it in your own project, but note that it is by no means
 complete (there are many more possibilities where references can occur).
