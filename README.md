@@ -1,10 +1,11 @@
 django-attach
 =============
 
-django-attach is a django admin plugin for attaching files to model instances
-with multiple file selection support. Its main feature is a custom admin inline
-form. Requires a modern browser supporting HTML5 and XMLHttpRequest2,
-but falls back to the plain django inline form when these are not available.
+django-attach is a [Django](https://www.djangoproject.com) admin plugin for
+attaching files to model instances with multiple file selection support. Its main
+feature is a custom admin inline form. Requires a modern browser supporting
+HTML5 and XMLHttpRequest2, but falls back to the plain django inline form when
+these are not available.
 
 ### Features:
 
@@ -16,6 +17,11 @@ but falls back to the plain django inline form when these are not available.
   and the instance can be saved).
 * Reports upload progress.
 * Reports any errors in asynchronous requests if they occur.
+
+### Supported Django version:
+
+* Django 1.5 (django-attach stable release)
+* Django 3.2.3 (django-attach development version)
 
 Installation
 ------------
@@ -40,9 +46,9 @@ Add the application to `settings.py`:
 
 Initialize database tables and copy static files:
 
-    python manage.py makemigrations
-    python manage.py migrate
-    python manage.py collectstatic
+    python3 manage.py makemigrations
+    python3 manage.py migrate
+    python3 manage.py collectstatic
 
 Add a generic relation field to your model:
 
