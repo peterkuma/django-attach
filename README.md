@@ -18,20 +18,18 @@ these are not available.
 * Reports upload progress.
 * Reports any errors in asynchronous requests if they occur.
 
-### Supported Django version:
+### Supported Django versions:
 
-* Django 1.5 (django-attach stable release)
-* Django 3.2.3 (django-attach development version)
+* Django 3.2.3
 
 Installation
 ------------
 
-To install the latest stable release (Python 2, Django 1.5):
+To install the latest stable release:
 
-    pip install django-attach
+    pip3 install django-attach
 
-To install the latest development version (Python 3, Django 3.2), download this
-repository and run:
+To install the latest development version, download this repository and run:
 
     python3 setup.py install
 
@@ -141,7 +139,7 @@ when the model form is submitted. If the instance is yet to be created,
 they are associated with a new Temporary object. Once the model instance
 is saved, they are re-attached to the instance, and moved in the file storage
 to the appropriate location (`MEDIA_ROOT/attachment/<model>/<id>/`).
-File deletion is implemented using the ordinary hidden *-DELETE fields
+File deletion is implemented using the ordinary hidden \*-DELETE fields
 as in inline formset, submitted synchronously on model form submission.
 
 Known issues
@@ -181,3 +179,15 @@ New attachments are uploaded asynchronously when form is submitted. Upload
 progress is shown.
 
 ![](https://github.com/peterkuma/django-attach/raw/master/screenshots/2.png)
+
+Release Notes
+-------------
+
+### 1.0.0 (2021-05-30)
+
+- Support for Django 3.2.3.
+
+### 0.1.1 (2013-09-06)
+
+- Initial release.
+- Support for Django 1.5.
