@@ -22,7 +22,7 @@ Installation
 
 To install the latest stable release (Python 2, Django 1.5):
 
-    pip3 install django-attach
+    pip install django-attach
 
 To install the latest development version (Python 3, Django 3.2), download this
 repository and run:
