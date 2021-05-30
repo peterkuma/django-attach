@@ -20,31 +20,34 @@ but falls back to the plain django inline form when these are not available.
 Installation
 ------------
 
-Install from PyPI or with `setup.py`:
+To install the latest stable release (Python 2, Django 1.5):
 
-    pip install django-attach
+    pip3 install django-attach
 
-    # Alternatively:
-    python setup.py install
+To install the latest development version (Python 3, Django 3.2), download this
+repository and run:
+
+    python3 setup.py install
 
 Add the application to `settings.py`:
 
     INSTALLED_APPS = (
         ...
-        'django_attach',
-        # You apps follow here.
+        'django_attach.apps.DjangoAttachConfig',
+        # Your apps follow here.
         ...
     )
 
 Initialize database tables and copy static files:
 
-    python manage.py syncdb
+    python manage.py makemigrations
+    python manage.py migrate
     python manage.py collectstatic
 
 Add a generic relation field to your model:
 
     from django_attach.models import Attachment
-    from django.contrib.contenttypes.generic import GenericRelation
+    from django.contrib.contenttypes.fields import GenericRelation
     ...
 
     class MyModel(models.Model):
@@ -74,31 +77,6 @@ which serves the files (e.g. via HTTP redirect) under the appropriate URL.
 You may also need to pipe the HTML content through a filter which modifies
 the relative links to absolute links (if you display multiple models
 under one URL).
-
-Browser support
----------------
-
-This is an early release of django-attach. As such, it has not been tested
-thoroughly on many browsers.
-
-**Known to work:**
-
-* Firefox 23
-* Chromium 27
-
-**Partial:**
-
-* Safari 6 on Mountain Lion (allows selection of only 1 file at a time)
-
-**Fallback to classic formset inline:**
-
-* IE7
-* IE8
-* IE9
-
-**Broken:**
-
-* IE10
 
 Example
 -------

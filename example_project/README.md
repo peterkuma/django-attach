@@ -2,19 +2,19 @@ django-attach example
 =====================
 
 This is an example django project demonstrating how to use django-attach.
-The project requires markdown and BeautifulSoup to run properly:
+The project requires markdown and beautifulsoup4 to run properly:
 
-    pip install markdown
-    pip install beautifulsoup4
+    pip3 install markdown
+    pip3 install beautifulsoup4
 
 You can run the server in the usual way:
 
-    python manage.py runserver
+    python3 manage.py runserver
 
 The admin interface will be available at
 [localhost:8000/admin/](http://localhost:8000/admin/). Log in with:
 
-Username: **admin**  
+Username: **admin**
 Password: **admin**
 
 The project contains an application `app`, which defines model `Article`.
@@ -35,7 +35,7 @@ However, the overview of articles requires that the links are converted to their
 absolute counterparts. This is done by the **baseurl** filter
 (`app/templatetags/baseurl.py`).
 
-`baseurl` uses [beautifulsoup](https://pypi.python.org/pypi/beautifulsoup4)
+`baseurl` uses [beautifulsoup4](https://pypi.python.org/pypi/beautifulsoup4)
 to extend references to attachments in links, images and style attributes.
 Feel free to use it in your own project, but note that it is by no means
 complete (there are many more possibilities where references can occur).
