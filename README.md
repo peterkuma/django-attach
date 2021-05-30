@@ -187,7 +187,12 @@ Release Notes
 
 - Support for Django 3.2.3.
 
-### 0.1.1 (2013-09-06)
+### 0.1.3 (2013-09-11)
+
+- Fixed wrong database name.
+- Improved README.
+
+### 0.1, 0.1.1, 0.1.2 (2013-09-06)
 
 - Initial release.
 - Support for Django 1.5.
