@@ -261,7 +261,6 @@ function AttachmentInline(el, prefix) {
     function submit(button) {
         var size = 0;
         var loaded = 0;
-        var loaded_last = 0;
 
         if (!dirty) {
             button.on('click', null);
@@ -274,16 +273,18 @@ function AttachmentInline(el, prefix) {
             size += d.file.size;
         });
 
-        var onprogress = function(evt) {
-            loaded += evt.loaded - loaded_last;
-            loaded_last = evt.loaded;
-            var percent = Math.round(100.0*loaded/size);
-            note('Uploading... '+percent+'%');
-        };
-
         var q = queue(1);
         data.forEach(function(d) {
             if (!d.file) return;
+
+            var loaded_last = 0;
+            var onprogress = function(evt) {
+                loaded += evt.loaded - loaded_last;
+                loaded_last = evt.loaded;
+                var percent = Math.round(100.0*loaded/size);
+                note('Uploading... '+percent+'%');
+            };
+
             q.defer(submit_attachment, d, onprogress);
         });
 
