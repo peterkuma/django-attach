@@ -6,6 +6,7 @@ function AttachmentInline(el, prefix) {
     var form = null;
     var content_type = null;
     var object_id = null;
+    var busy = false;
 
     init();
 
@@ -273,6 +274,11 @@ function AttachmentInline(el, prefix) {
             size += d.file.size;
         });
 
+        if (busy) {
+            return;
+        }
+        busy = true;
+
         var q = queue(1);
         data.forEach(function(d) {
             if (!d.file) return;
@@ -290,6 +296,7 @@ function AttachmentInline(el, prefix) {
 
         note('Uploading... 0%');
         q.awaitAll(function(err, results) {
+            busy = false;
             if (err) {
                 error(err);
                 return;
