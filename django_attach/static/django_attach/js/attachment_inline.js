@@ -152,12 +152,13 @@ function AttachmentInline(el, prefix) {
             .attr('value', data.length);
 
         var attachment = el.select('.list').selectAll('.attachment')
-            .data(data, function(d) { return d.name; })
-            .attr('class', 'attachment');
+            .data(data, function(d) { return d.name; });
 
-        var new_attachment = attachment.enter()
-            .append('div')
-            .attr('class', 'attachment');
+        var new_attachment = attachment.enter().append('div');
+            
+        new_attachment.attr('class', function(d) {
+            return d.is_new ? 'attachment new' : 'attachment';
+        });
 
         new_attachment.append('input')
             .attr('class', 'id')
@@ -327,10 +328,12 @@ function AttachmentInline(el, prefix) {
 
     function attach_file(file) {
         dirty = true;
+        note('Press save to upload the files.');
         data.push({
             'name': prefix+'-'+data.length,
             'file': file,
-            'filename': available_name(file.name)
+            'filename': available_name(file.name),
+            'is_new': true,
         });
         update();
     }

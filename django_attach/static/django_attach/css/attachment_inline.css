@@ -2,6 +2,10 @@
     padding: 1em;
 }
 
+.attachment-inline .attachment.new {
+    background: #aaffaa;
+}
+
 .attachment-inline .attachment .delete {
     width: 10px;
     height: 10px;
