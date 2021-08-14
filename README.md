@@ -183,6 +183,13 @@ progress is shown.
 Release Notes
 -------------
 
+### 1.1.0 (2021-08-14)
+
+- Revert button.
+- Indication of new and removed items.
+- Fixed progress indication when multiple files are uploaded.
+- Fixed remove button on mobile.
+
 ### 1.0.0 (2021-05-30)
 
 - Support for Django 3.2.3.
