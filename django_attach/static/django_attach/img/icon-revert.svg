@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg4"
+   version="1.1"
+   viewBox="0 0 1792 1792"
+   height="13"
+   width="13">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <circle
+     r="768"
+     cy="896"
+     cx="896"
+     id="path817"
+     style="opacity:1;vector-effect:none;fill:#2b70bf;fill-opacity:1;stroke:none;stroke-width:156.29800415;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+  <path
+     id="path4924"
+     transform="scale(137.84615)"
+     d="M 6.28125 1.1347656 C 6.1595185 1.125463 6.0123228 1.1908022 5.9101562 1.2929688 L 3.9609375 3.2421875 C 3.8771566 3.3259685 3.8382522 3.4355642 3.8398438 3.5449219 C 3.8382522 3.6542795 3.8771566 3.7638752 3.9609375 3.8476562 L 5.9101562 5.796875 C 6.0123228 5.8990415 6.1595185 5.9643807 6.28125 5.9550781 C 6.4029815 5.9457755 6.5 5.8610823 6.5 5.6601562 L 6.5 4.4667969 C 7.324657 4.4667969 8.0613709 4.9607726 8.3769531 5.7226562 C 8.6925361 6.4845403 8.5206204 7.3543796 7.9375 7.9375 C 7.3543796 8.5206204 6.4845405 8.6925354 5.7226562 8.3769531 C 5.0547538 8.1002991 4.5938087 7.5003727 4.4902344 6.8007812 C 4.442577 6.5639464 4.3569429 6.5152855 4.2265625 6.5039062 L 2.9570312 6.5273438 C 2.6276461 6.5336057 2.6383693 6.8185485 2.6386719 6.9648438 C 2.8054993 8.3456116 3.7057948 9.5528187 5.0117188 10.09375 C 6.4625887 10.69472 8.1395519 10.360448 9.25 9.25 C 10.360448 8.1395519 10.69472 6.4625886 10.09375 5.0117188 C 9.49278 3.5608485 8.0704102 2.6113281 6.5 2.6113281 L 6.5 1.4296875 C 6.5 1.2287614 6.4029815 1.1440682 6.28125 1.1347656 z "
+     style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.85699999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+</svg>

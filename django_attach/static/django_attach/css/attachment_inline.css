@@ -6,14 +6,36 @@
     background: #aaffaa;
 }
 
-.attachment-inline .attachment .delete {
-    width: 10px;
-    height: 10px;
-    background: url(../../admin/img/icon-deletelink.svg) no-repeat center center;
+.attachment-inline .attachment.remove {
+    text-decoration: line-through;
+}
+
+.attachment-inline .attachment .attachment-button {
+    width: 1.2em;
+    height: 1.2em;
     vertical-align: middle;
     display: inline-block;
     cursor: pointer;
-    margin-left: 0.3em;
+    margin: 0 0.1em;
+}
+
+.attachment-inline .attachment .attachment-button.delete {
+    background: url(../../admin/img/icon-deletelink.svg) no-repeat center center;
+    background-size: 100%;
+}
+
+.attachment-inline .attachment.remove .attachment-button.delete {
+    display: none;
+}
+
+.attachment-inline .attachment .attachment-button.revert {
+    background: url(../img/icon-revert.svg) no-repeat center center;
+    background-size: 100%;
+    display: none;
+}
+
+.attachment-inline .attachment.remove .attachment-button.revert {
+    display: inline-block;
 }
 
 .attachment-inline .attach {

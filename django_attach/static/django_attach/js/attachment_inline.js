@@ -1,7 +1,6 @@
 function AttachmentInline(el, prefix) {
     var module = {};
     var data = [];
-    var dirty = false;
     var orig_el = null;
     var form = null;
     var content_type = null;
@@ -141,7 +140,26 @@ function AttachmentInline(el, prefix) {
     }
     note.msg = null;
 
+    function renumber() {
+        var i = 0;
+        console.log(data);
+        data.forEach(function(d) {
+            if (d.is_new) {
+                if (d.remove) {
+                    d.name = '';
+                } else {
+                    d.name = prefix + '-' + i;
+                    i++;
+                }
+            } else {
+                i++;
+            }
+        });
+    }
+
     function update() {
+        renumber();
+    
         el.select('#id_'+prefix+'-CONTENT_TYPE')
             .attr('value', content_type !== null ? content_type : '');
         el.select('#id_'+prefix+'-OBJECT_ID')
@@ -156,19 +174,15 @@ function AttachmentInline(el, prefix) {
 
         var new_attachment = attachment.enter().append('div');
             
-        new_attachment.attr('class', function(d) {
-            return d.is_new ? 'attachment new' : 'attachment';
-        });
+        new_attachment
+            .attr('class', 'attachment')
+            .classed('new', function(d) { return d.is_new; });
 
         new_attachment.append('input')
             .attr('class', 'id')
-            .attr('id', function(d) { return 'id_'+d.name+'-id'; })
-            .attr('name', function(d) { return d.name+'-id'; })
             .attr('type', 'hidden');
 
         new_attachment.append('input')
-            .attr('id', function(d) { return 'id_'+d.name+'-file'; })
-            .attr('name', function(d) { return d.name+'-file'; })
             .attr('type', 'file')
             .style('display', 'none');
 
@@ -180,23 +194,47 @@ function AttachmentInline(el, prefix) {
             });
 
         new_attachment.append('div')
-            .attr('class', 'delete')
+            .attr('class', 'attachment-button delete')
+            .attr('title', 'Remove')
             .on('click', function(d) {
-                if (d.file) data.splice(data.indexOf(d), 1);
-                else d.remove = true;
+                d.remove = true;
+                update();
+            });
+
+        new_attachment.append('div')
+            .attr('class', 'attachment-button revert')
+            .attr('title', 'Revert')
+            .on('click', function(d) {
+                d.remove = false;
                 update();
             });
 
         attachment
-            .style('display', function(d) { return d.remove ? 'none' : 'block'; });
+            .classed('remove', function(d) { return d.remove; });
 
         attachment.select('.id')
             .attr('value', function(d) { return d.id >= 0 ? d.id : ''; });
 
+        attachment.select('input[type="hidden"]')
+            .attr('id', function(d) {
+                return d.name !== '' ? 'id_'+d.name+'-id' : '';
+            })
+            .attr('name', function(d) {
+                return d.name !== '' ? d.name+'-id' : '';
+            });
+
+        attachment.select('input[type="file"]')
+            .attr('id', function(d) {
+                return d.name !== '' ? 'id_'+d.name+'-file' : '';
+            })
+            .attr('name', function(d) {
+                return d.name !== '' ? d.name+'-file' : '';
+            });
+
         attachment.exit().remove();
 
         var input_delete = el.selectAll('input.delete')
-            .data(data.filter(function(d) { return d.remove; }),
+            .data(data.filter(function(d) { return d.remove && !d.is_new; }),
                   function(d) { return d.name; });
 
         input_delete.enter().append('input')
@@ -259,19 +297,25 @@ function AttachmentInline(el, prefix) {
         };
         req.send(form_data);
     }
+    
+    function is_dirty() {
+        return data.some(function(d) {
+            return d.is_new && !d.remove;
+        });
+    }
 
     function submit(button) {
         var size = 0;
         var loaded = 0;
 
-        if (!dirty) {
+        if (!is_dirty()) {
             button.on('click', null);
             button.node().click();
             return;
         }
 
         data.forEach(function(d) {
-            if (!d.file) return;
+            if (!d.file || d.remove) return;
             size += d.file.size;
         });
 
@@ -282,7 +326,7 @@ function AttachmentInline(el, prefix) {
 
         var q = queue(1);
         data.forEach(function(d) {
-            if (!d.file) return;
+            if (!d.file || d.remove) return;
 
             var loaded_last = 0;
             var onprogress = function(evt) {
@@ -327,10 +371,7 @@ function AttachmentInline(el, prefix) {
     }
 
     function attach_file(file) {
-        dirty = true;
-        note('Press save to upload the files.');
         data.push({
-            'name': prefix+'-'+data.length,
             'file': file,
             'filename': available_name(file.name),
             'is_new': true,
