@@ -142,7 +142,6 @@ function AttachmentInline(el, prefix) {
 
     function renumber() {
         var i = 0;
-        console.log(data);
         data.forEach(function(d) {
             if (d.is_new) {
                 if (d.remove) {
