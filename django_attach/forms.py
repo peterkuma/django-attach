@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 from django import forms
 from django.forms.fields import IntegerField
 from django.core.exceptions import ValidationError
@@ -9,8 +10,13 @@ from django.contrib.contenttypes.admin import GenericInlineModelAdmin
 from django.contrib.contenttypes.forms import BaseGenericInlineFormSet
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin import static
+from django.core.files.storage import FileSystemStorage
 
-from .models import Attachment, Temporary
+from .models import Attachment, Temporary, attachment_file_upload_to
+
+
+class AttachmentForm(forms.ModelForm):
+    filename = forms.CharField()
 
 
 class AttachmentManagementForm(ManagementForm):
@@ -36,7 +42,7 @@ class BaseAttachmentInlineFormSet(BaseGenericInlineFormSet):
             content_type = None
             object_id = None
             if data is not None:
-                try:    
+                try:
                     content_type = int(data[self.rel_name+'-CONTENT_TYPE'])
                     object_id = int(data[self.rel_name+'-OBJECT_ID'])
                 except (KeyError, ValueError):
@@ -93,6 +99,20 @@ class BaseAttachmentInlineFormSet(BaseGenericInlineFormSet):
 
         setattr(instance, self.ct_field.get_attname(), ContentType.objects.get_for_model(self.instance).pk)
         setattr(instance, self.ct_fk_field.get_attname(), self.instance.pk)
+
+        old_path = instance.file.path
+        storage = instance.file.storage
+        name = storage.get_valid_name(form.cleaned_data['filename'])
+        filename = attachment_file_upload_to(instance, name)
+        available_filename = storage.get_available_name(filename)
+        if name != '' and filename != instance.file.name and t is None:
+            if not isinstance(storage, FileSystemStorage):
+                raise NotImplementedError('Renaming attachments in storage other than FileSystemStorage is not supported')
+            new_path = storage.path(available_filename)
+            assert(os.path.dirname(old_path) == os.path.dirname(new_path))
+            os.rename(old_path, new_path)
+            instance.file.name = available_filename
+
         obj = super().save_existing(form, instance, commit)
 
         # Delete temporary object if not empty.
@@ -106,6 +126,7 @@ class BaseAttachmentInlineFormSet(BaseGenericInlineFormSet):
 
 class AttachmentInline(GenericInlineModelAdmin):
     model = Attachment
+    form = AttachmentForm
     extra = 0
     template = 'django_attach/attachment_inline.html'
     formset = BaseAttachmentInlineFormSet

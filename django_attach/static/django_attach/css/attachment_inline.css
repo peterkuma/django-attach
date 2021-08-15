@@ -2,6 +2,14 @@
     padding: 1em;
 }
 
+.attachment-inline .attachment input[type="text"] {
+    display: none;
+}
+
+.attachment-inline .attachment.rename input[type="text"] {
+    display: inline;
+}
+
 .attachment-inline .attachment.new {
     background: #aaffaa;
 }
@@ -10,13 +18,17 @@
     text-decoration: line-through;
 }
 
+.attachment-inline .attachment.rename a {
+    display: none;
+}
+
 .attachment-inline .attachment .attachment-button {
     width: 1.2em;
     height: 1.2em;
     vertical-align: middle;
     display: inline-block;
     cursor: pointer;
-    margin: 0 0.1em;
+    margin: 0 0.2em;
 }
 
 .attachment-inline .attachment .attachment-button.delete {
@@ -35,6 +47,35 @@
 }
 
 .attachment-inline .attachment.remove .attachment-button.revert {
+    display: inline-block;
+}
+
+.attachment-inline .attachment .attachment-button.rename {
+    background: url(../../admin/img/icon-changelink.svg) no-repeat center center;
+    background-size: 100%;
+}
+
+.attachment-inline .attachment.rename .attachment-button.rename {
+    display: none;
+}
+
+.attachment-inline .attachment .attachment-button.confirm-rename {
+    background: url(../../admin/img/icon-yes.svg) no-repeat center center;
+    background-size: 100%;
+    display: none;
+}
+
+.attachment-inline .attachment.rename .attachment-button.confirm-rename {
+    display: inline-block;
+}
+
+.attachment-inline .attachment .attachment-button.cancel-rename {
+    background: url(../../admin/img/icon-no.svg) no-repeat center center;
+    background-size: 100%;
+    display: none;
+}
+
+.attachment-inline .attachment.rename .attachment-button.cancel-rename {
     display: inline-block;
 }
 

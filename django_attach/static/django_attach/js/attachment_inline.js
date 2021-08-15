@@ -158,7 +158,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
 
     function update() {
         renumber();
-    
+
         el.select('#id_'+prefix+'-CONTENT_TYPE')
             .attr('value', content_type !== null ? content_type : '');
         el.select('#id_'+prefix+'-OBJECT_ID')
@@ -172,7 +172,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
             .data(data, function(d) { return d.name; });
 
         var new_attachment = attachment.enter().append('div');
-            
+
         new_attachment
             .attr('class', 'attachment')
             .classed('new', function(d) { return d.is_new; });
@@ -186,16 +186,51 @@ function AttachmentInline(el, prefix, admin_prefix) {
             .style('display', 'none');
 
         new_attachment.append('a')
-            .text(function(d) { return d.filename; })
             .attr('href', function(d) {
                 if (d.file) return window.URL.createObjectURL(d.file);
                 return d.url;
+            });
+
+        new_attachment.append('input')
+            .attr('type', 'text')
+            .attr('value', function(d) { return d.filename; });
+
+        new_attachment.append('div')
+            .attr('class', 'attachment-button rename')
+            .attr('title', 'Rename')
+            .on('click', function(d) {
+                d.rename = true;
+                update();
+            });
+
+        new_attachment.append('div')
+            .attr('class', 'attachment-button confirm-rename')
+            .attr('title', 'Confirm rename')
+            .on('click', function(d) {
+                var input = this.parentNode.querySelector('input[type="text"]');
+                if (input.value !== '') {
+                    d.filename = input.value;
+                }
+                input.value = d.filename;
+                d.rename = false;
+                update();
+            });
+
+        new_attachment.append('div')
+            .attr('class', 'attachment-button cancel-rename')
+            .attr('title', 'Cancel rename')
+            .on('click', function(d) {
+                var input = this.parentNode.querySelector('input[type="text"]');
+                d.rename = false;
+                input.value = d.filename;
+                update();
             });
 
         new_attachment.append('div')
             .attr('class', 'attachment-button delete')
             .attr('title', 'Remove')
             .on('click', function(d) {
+                d.rename = false;
                 d.remove = true;
                 update();
             });
@@ -204,15 +239,20 @@ function AttachmentInline(el, prefix, admin_prefix) {
             .attr('class', 'attachment-button revert')
             .attr('title', 'Revert')
             .on('click', function(d) {
+                d.rename = false;
                 d.remove = false;
                 update();
             });
 
         attachment
-            .classed('remove', function(d) { return d.remove; });
+            .classed('remove', function(d) { return d.remove; })
+            .classed('rename', function(d) { return d.rename; });
 
         attachment.select('.id')
             .attr('value', function(d) { return d.id >= 0 ? d.id : ''; });
+
+        attachment.select('a')
+            .text(function(d) { return d.filename; });
 
         attachment.select('input[type="hidden"]')
             .attr('id', function(d) {
@@ -228,6 +268,14 @@ function AttachmentInline(el, prefix, admin_prefix) {
             })
             .attr('name', function(d) {
                 return d.name !== '' ? d.name+'-file' : '';
+            });
+
+        attachment.select('input[type="text"]')
+            .attr('id', function(d) {
+                return d.name !== '' ? 'id_'+d.name+'-filename' : '';
+            })
+            .attr('name', function(d) {
+                return d.name !== '' ? d.name+'-filename' : '';
             });
 
         attachment.exit().remove();
@@ -260,7 +308,8 @@ function AttachmentInline(el, prefix, admin_prefix) {
             form_data.append('content_type', content_type);
             form_data.append('object_id', object_id);
         }
-        form_data.append('file', attachment.file);
+        file = new File([attachment.file], attachment.filename);
+        form_data.append('file', file);
 
         var req = new XMLHttpRequest();
         req.open('POST',  admin_prefix + 'django_attach/attachment/add/');
@@ -288,7 +337,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         };
         req.send(form_data);
     }
-    
+
     function is_dirty() {
         return data.some(function(d) {
             return d.is_new && !d.remove;
