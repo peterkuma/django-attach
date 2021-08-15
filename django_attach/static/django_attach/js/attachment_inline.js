@@ -1,4 +1,4 @@
-function AttachmentInline(el, prefix) {
+function AttachmentInline(el, prefix, admin_prefix) {
     var module = {};
     var data = [];
     var orig_el = null;
@@ -263,7 +263,7 @@ function AttachmentInline(el, prefix) {
         form_data.append('file', attachment.file);
 
         var req = new XMLHttpRequest();
-        req.open('POST',  '../../../../django_attach/attachment/add/');
+        req.open('POST',  admin_prefix + 'django_attach/attachment/add/');
         req.upload.onprogress = onprogress;
         req.setRequestHeader('Accept', 'application/json');
         req.setRequestHeader('X-CSRFToken', form.elements['csrfmiddlewaretoken'].value);
@@ -273,17 +273,9 @@ function AttachmentInline(el, prefix) {
             var json_error = null;
             try { json = JSON.parse(req.response); }
             catch (e) { json_error = e; }
-            if (req.status !== 200) {
-                uri = datauri(req.responseText);
-                callback('Request failed: '+
-                         'HTTP '+req.status+' '+req.statusText+' '+
-                         '(<a href="'+uri+'">details</a>)');
-                return;
-            }
-            if (json === null) {
-                uri = datauri(req.responseText);
-                callback('Invalid response: '+json_error+' '+
-                         '(<a href="'+uri+'">details</a>)');
+            if (req.status !== 200 || json === null) {
+                console.error(req.responseText);
+                callback('Upload request failed');
                 return;
             }
             content_type = json.content_type;
@@ -331,7 +323,7 @@ function AttachmentInline(el, prefix) {
             var onprogress = function(evt) {
                 loaded += evt.loaded - loaded_last;
                 loaded_last = evt.loaded;
-                var percent = Math.round(100.0*loaded/size);
+                var percent = Math.min(100.0, Math.round(100.0*loaded/size));
                 note('Uploading... '+percent+'%');
             };
 
