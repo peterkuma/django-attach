@@ -208,8 +208,9 @@ function AttachmentInline(el, prefix, admin_prefix) {
             .attr('title', 'Confirm rename')
             .on('click', function(d) {
                 var input = this.parentNode.querySelector('input[type="text"]');
-                if (input.value !== '') {
-                    d.filename = input.value;
+                valid_name = get_valid_name(input.value);
+                if (valid_name !== d.filename) {
+                    d.filename = get_available_name(valid_name);
                 }
                 input.value = d.filename;
                 d.rename = false;
@@ -397,7 +398,17 @@ function AttachmentInline(el, prefix, admin_prefix) {
         });
     }
 
-    function available_name(name) {
+    function get_valid_name(name) {
+        s = name.trim().replace(' ', '_');
+        s = s.replace(/[^-\w.]/g, '');
+        if (s === '' || s === '.')
+            s = '_';
+        if (s === '..')
+            s = '__';
+        return s;
+    }
+
+    function get_available_name(name) {
         var names = data.map(function(d) { return d.filename; });
         var n = name.lastIndexOf('.');
         var base = n >= 0 ? name.substring(0, n) : name;
@@ -413,7 +424,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
     function attach_file(file) {
         data.push({
             'file': file,
-            'filename': available_name(file.name),
+            'filename': get_available_name(get_valid_name(file.name)),
             'is_new': true,
         });
         update();
