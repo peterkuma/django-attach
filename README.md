@@ -183,6 +183,11 @@ progress is shown.
 Release Notes
 -------------
 
+### 1.2.0 (2021-08-18)
+
+- Support for renaming files.
+- Fixed uploading of files on new model instances
+
 ### 1.1.0 (2021-08-14)
 
 - Revert button.
