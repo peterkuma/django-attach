@@ -1,4 +1,5 @@
 function AttachmentInline(el, prefix, admin_prefix) {
+    var counter = 0;
     var module = {};
     var data = [];
     var orig_el = null;
@@ -103,11 +104,12 @@ function AttachmentInline(el, prefix, admin_prefix) {
             .filter(function() {
                 return this.parentNode.querySelector('a');
             })
-            [0].map(function(node) {
+            [0].map(node => {
                 var name = node.name.substring(0, node.name.lastIndexOf('-'));
                 var url = d3.select(node.parentNode).select('a').attr('href');
                 var filename =  url.substring(url.lastIndexOf('/')+1);
                 var d = {
+                    'key': counter++,
                     'name': name,
                     'id': el.select('#id_'+name+'-id').attr('value'),
                     'url': url,
@@ -169,7 +171,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
             .attr('value', data.length);
 
         var attachment = el.select('.list').selectAll('.attachment')
-            .data(data, function(d) { return d.name; });
+            .data(data, function(d) { return d.key; });
 
         var new_attachment = attachment.enter().append('div');
 
@@ -283,7 +285,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
 
         var input_delete = el.selectAll('input.delete')
             .data(data.filter(function(d) { return d.remove && !d.is_new; }),
-                  function(d) { return d.name; });
+                  function(d) { return d.key; });
 
         input_delete.enter().append('input')
             .attr('type', 'hidden')
@@ -423,6 +425,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
 
     function attach_file(file) {
         data.push({
+            'key': counter++,
             'file': file,
             'filename': get_available_name(get_valid_name(file.name)),
             'is_new': true,
