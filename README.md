@@ -171,8 +171,8 @@ Screenshots
 -----------
 
 AttachmentInline displays a list of attachments on a model change page.
-Attachments can be added by clicking the `Attach file` button, and removed
-by clicking a cross next to a file name.
+Attachments are added by clicking the `Attach file` button. They can renamed,
+removed and reverted. Changes are applied when the form is saved.
 
 ![](https://github.com/peterkuma/django-attach/raw/master/screenshots/1.png)
 
