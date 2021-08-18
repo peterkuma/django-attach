@@ -91,6 +91,47 @@ class BaseAttachmentInlineFormSet(BaseGenericInlineFormSet):
             form.has_changed = lambda: True  # Hack.
         return super().save_existing_objects(commit)
 
+    def get_attachment_by_file(self, filename):
+        for form in self.initial_forms:
+            if form.instance.file.name == filename:
+                return form.instance
+        return None
+
+    def rename_existing_file(self, filename, storage):
+        path = storage.path(filename)
+        new_filename = storage.get_available_name(filename)
+        new_path = storage.path(new_filename)
+        a = self.get_attachment_by_file(filename)
+        if a is None: return False
+        os.makedirs(os.path.dirname(new_path), exist_ok=True)
+        assert(os.path.isfile(path))
+        os.rename(path, new_path)
+        a.file.name = new_filename
+        a.save()
+        return True
+
+    def rename_file(self, form, instance):
+        storage = instance.file.storage
+        filename = instance.file.name
+        path = storage.path(filename)
+        new_name = storage.get_valid_name(form.cleaned_data['filename'])
+        new_filename = attachment_file_upload_to(instance, new_name)
+        if new_filename == filename:
+            return
+        if not isinstance(storage, FileSystemStorage):
+            raise NotImplementedError('Renaming attachments in storage other than FileSystemStorage is not supported')
+        if storage.exists(new_filename):
+            res = self.rename_existing_file(new_filename, storage)
+            if res is False:
+                # Failed to rename the existing file. We have to get a new
+                # available filename.
+                new_filename = storage.get_available_name(new_filename)
+        new_path = storage.path(new_filename)
+        os.makedirs(os.path.dirname(new_path), exist_ok=True)
+        assert(os.path.isfile(path))
+        os.rename(path, new_path)
+        instance.file.name = new_filename
+
     def save_existing(self, form, instance, commit=True):
         """Saves and returns an existing model instance for the given form."""
         t = None
@@ -100,18 +141,7 @@ class BaseAttachmentInlineFormSet(BaseGenericInlineFormSet):
         setattr(instance, self.ct_field.get_attname(), ContentType.objects.get_for_model(self.instance).pk)
         setattr(instance, self.ct_fk_field.get_attname(), self.instance.pk)
 
-        old_path = instance.file.path
-        storage = instance.file.storage
-        name = storage.get_valid_name(form.cleaned_data['filename'])
-        filename = attachment_file_upload_to(instance, name)
-        available_filename = storage.get_available_name(filename)
-        if name != '' and filename != instance.file.name and t is None:
-            if not isinstance(storage, FileSystemStorage):
-                raise NotImplementedError('Renaming attachments in storage other than FileSystemStorage is not supported')
-            new_path = storage.path(available_filename)
-            assert(os.path.dirname(old_path) == os.path.dirname(new_path))
-            os.rename(old_path, new_path)
-            instance.file.name = available_filename
+        self.rename_file(form, instance)
 
         obj = super().save_existing(form, instance, commit)
 
