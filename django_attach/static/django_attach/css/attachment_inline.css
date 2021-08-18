@@ -104,10 +104,10 @@
 }
 
 .attachment-inline .error {
-    color: #d40000;
+    color: var(--error-fg);
     font-weight: bold;
-    background: #ffc0c0;
-    padding: 1em;
+    background: var(--message-error-bg);
+    padding: 8px;
 }
 
 .attachment-inline .error a {
@@ -119,7 +119,7 @@
     color: #0169c9;
     font-weight: bold;
     background: #d3eaff;
-    padding: 1em;
+    padding: 8px;
 }
 
 .attachment-inline .note a {
