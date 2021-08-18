@@ -18,9 +18,10 @@ these are not available.
 * Reports upload progress.
 * Reports any errors in asynchronous requests if they occur.
 
-### Supported Django versions:
+The plugin has been tested with Django 3.2.6.
 
-* Django 3.2.3
+Please report any issues or questions on
+[Github Issues](https://github.com/peterkuma/django-attach/issues).
 
 Installation
 ------------
@@ -186,7 +187,7 @@ Release Notes
 ### 1.2.1 (2021-08-18)
 
 - Support for renaming files.
-- Fixed uploading of files on new model instances
+- Fixed uploading of files on new model instances.
 - Fixed removing of new files.
 
 ### 1.1.0 (2021-08-14)
