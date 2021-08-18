@@ -1,5 +1,17 @@
 .attachment-inline .attachment {
-    padding: 1em;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+}
+
+.attachment-inline .attachment a {
+    flex-grow: 1;
+    text-overflow: ellipsis;
+    padding: 8px 0;
+}
+
+.attachment-inline .attachment:nth-child(2n) {
+    background: var(--darkened-bg);
 }
 
 .attachment-inline .attachment input[type="text"] {
@@ -7,14 +19,24 @@
 }
 
 .attachment-inline .attachment.rename input[type="text"] {
-    display: inline;
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 0;
+    margin-left: -8px;
+    font-size: inherit;
+    border-radius: 0;
 }
 
 .attachment-inline .attachment.new {
-    background: #aaffaa;
+    background: var(--message-success-bg);
 }
 
 .attachment-inline .attachment.remove {
+    background: var(--message-error-bg);
+}
+
+.attachment-inline .attachment.remove a {
     text-decoration: line-through;
 }
 
@@ -23,17 +45,19 @@
 }
 
 .attachment-inline .attachment .attachment-button {
-    width: 1.2em;
-    height: 1.2em;
-    vertical-align: middle;
-    display: inline-block;
+    margin-left: 8px;
+    padding-left: 16px;
+    background-size: 16px;
+    color: var(--link-fg);
     cursor: pointer;
-    margin: 0 0.2em;
+}
+
+.attachment-inline .attachment .attachment-button:hover {
+    color: var(--link-hover-color);
 }
 
 .attachment-inline .attachment .attachment-button.delete {
-    background: url(../../admin/img/icon-deletelink.svg) no-repeat center center;
-    background-size: 100%;
+    background: url(../../admin/img/icon-deletelink.svg) no-repeat left center;
 }
 
 .attachment-inline .attachment.remove .attachment-button.delete {
@@ -41,8 +65,7 @@
 }
 
 .attachment-inline .attachment .attachment-button.revert {
-    background: url(../img/icon-revert.svg) no-repeat center center;
-    background-size: 100%;
+    background: url(../img/icon-revert.svg) no-repeat left center;
     display: none;
 }
 
@@ -51,8 +74,7 @@
 }
 
 .attachment-inline .attachment .attachment-button.rename {
-    background: url(../../admin/img/icon-changelink.svg) no-repeat center center;
-    background-size: 100%;
+    background: url(../../admin/img/icon-changelink.svg) no-repeat left center;
 }
 
 .attachment-inline .attachment.rename .attachment-button.rename {
@@ -60,8 +82,7 @@
 }
 
 .attachment-inline .attachment .attachment-button.confirm-rename {
-    background: url(../../admin/img/icon-yes.svg) no-repeat center center;
-    background-size: 100%;
+    background: url(../../admin/img/icon-yes.svg) no-repeat left center;
     display: none;
 }
 
@@ -70,8 +91,7 @@
 }
 
 .attachment-inline .attachment .attachment-button.cancel-rename {
-    background: url(../../admin/img/icon-no.svg) no-repeat center center;
-    background-size: 100%;
+    background: url(../../admin/img/icon-no.svg) no-repeat left center;
     display: none;
 }
 

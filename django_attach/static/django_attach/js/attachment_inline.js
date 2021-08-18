@@ -200,6 +200,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         new_attachment.append('div')
             .attr('class', 'attachment-button rename')
             .attr('title', 'Rename')
+            .text('Rename')
             .on('click', function(d) {
                 d.rename = true;
                 update();
@@ -208,6 +209,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         new_attachment.append('div')
             .attr('class', 'attachment-button confirm-rename')
             .attr('title', 'Confirm rename')
+            .text('OK')
             .on('click', function(d) {
                 var input = this.parentNode.querySelector('input[type="text"]');
                 valid_name = get_valid_name(input.value);
@@ -222,6 +224,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         new_attachment.append('div')
             .attr('class', 'attachment-button cancel-rename')
             .attr('title', 'Cancel rename')
+            .text('Cancel')
             .on('click', function(d) {
                 var input = this.parentNode.querySelector('input[type="text"]');
                 d.rename = false;
@@ -232,6 +235,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         new_attachment.append('div')
             .attr('class', 'attachment-button delete')
             .attr('title', 'Remove')
+            .text('Remove')
             .on('click', function(d) {
                 d.rename = false;
                 d.remove = true;
@@ -241,6 +245,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         new_attachment.append('div')
             .attr('class', 'attachment-button revert')
             .attr('title', 'Revert')
+            .text('Revert')
             .on('click', function(d) {
                 d.rename = false;
                 d.remove = false;
