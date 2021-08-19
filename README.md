@@ -176,6 +176,8 @@ removed and reverted. Changes are applied when the form is saved.
 
 ![](https://github.com/peterkuma/django-attach/raw/master/screenshots/1.png)
 
+![](https://github.com/peterkuma/django-attach/raw/master/screenshots/3.png)
+
 New attachments are uploaded asynchronously when form is submitted. Upload
 progress is shown.
 
