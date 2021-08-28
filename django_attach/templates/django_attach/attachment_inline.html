@@ -1,5 +1,7 @@
 {% include "admin/edit_inline/stacked.html" %}
 
+<script src="{% url 'javascript-catalog' %}"></script>
+
 <script type="text/javascript">
   AttachmentInline('#{{ inline_admin_formset.formset.prefix }}-group', '{{ inline_admin_formset.formset.prefix }}', '{% url 'admin:index' %}');
 </script>
