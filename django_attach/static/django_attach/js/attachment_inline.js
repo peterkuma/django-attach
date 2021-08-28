@@ -77,7 +77,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         var button = el.append('input')
             .attr('type', 'submit')
             .attr('class', 'attach')
-            .attr('value', 'Attach file')
+            .attr('value', gettext('Attach file'))
             .on('click', function() {
                 d3.event.preventDefault();
                 module.attach();
@@ -200,7 +200,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         new_attachment.append('div')
             .attr('class', 'attachment-button rename')
             .attr('title', 'Rename')
-            .text('Rename')
+            .text(gettext('Rename'))
             .on('click', function(d) {
                 d.rename = true;
                 update();
@@ -209,7 +209,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         new_attachment.append('div')
             .attr('class', 'attachment-button confirm-rename')
             .attr('title', 'Confirm rename')
-            .text('OK')
+            .text(gettext('OK'))
             .on('click', function(d) {
                 var input = this.parentNode.querySelector('input[type="text"]');
                 valid_name = get_valid_name(input.value);
@@ -224,7 +224,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         new_attachment.append('div')
             .attr('class', 'attachment-button cancel-rename')
             .attr('title', 'Cancel rename')
-            .text('Cancel')
+            .text(gettext('Cancel'))
             .on('click', function(d) {
                 var input = this.parentNode.querySelector('input[type="text"]');
                 d.rename = false;
@@ -235,7 +235,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         new_attachment.append('div')
             .attr('class', 'attachment-button delete')
             .attr('title', 'Remove')
-            .text('Remove')
+            .text(gettext('Remove'))
             .on('click', function(d) {
                 d.rename = false;
                 d.remove = true;
@@ -245,7 +245,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
         new_attachment.append('div')
             .attr('class', 'attachment-button revert')
             .attr('title', 'Revert')
-            .text('Revert')
+            .text(gettext('Revert'))
             .on('click', function(d) {
                 d.rename = false;
                 d.remove = false;
@@ -332,7 +332,7 @@ function AttachmentInline(el, prefix, admin_prefix) {
             catch (e) { json_error = e; }
             if (req.status !== 200 || json === null) {
                 console.error(req.responseText);
-                callback('Upload request failed');
+                callback(gettext('Upload request failed'));
                 return;
             }
             content_type = json.content_type;
@@ -381,20 +381,20 @@ function AttachmentInline(el, prefix, admin_prefix) {
                 loaded += evt.loaded - loaded_last;
                 loaded_last = evt.loaded;
                 var percent = Math.min(100.0, Math.round(100.0*loaded/size));
-                note('Uploading... '+percent+'%');
+                note(gettext('Uploading... ')+percent+'%');
             };
 
             q.defer(submit_attachment, d, onprogress);
         });
 
-        note('Uploading... 0%');
+        note(gettext('Uploading... ')+'0%');
         q.awaitAll(function(err, results) {
             busy = false;
             if (err) {
                 error(err);
                 return;
             }
-            note('Uploading... 100%');
+            note(gettext('Uploading... ')+'100%');
             results.forEach(function(res) {
                 res.attachment.id = res.response.id;
                 delete res.attachment.file;
