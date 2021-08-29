@@ -83,6 +83,19 @@ You may also need to pipe the HTML content through a filter which modifies
 the relative links to absolute links (if you display multiple models
 under one URL).
 
+Lastly, add the following line to your project's urls.py just above `admin/`:
+
+```python
+urlpatterns = [
+    ...
+    # Add this line:
+    path('admin/django_attach/', include('django_attach.urls')),
+
+    path('admin/', admin.site.urls),
+    ...
+]
+```
+
 Example
 -------
 
