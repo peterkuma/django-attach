@@ -211,6 +211,11 @@ progress is shown.
 Release Notes
 -------------
 
+### 1.3.0 (2021-08-29)
+
+- Improved style more closely matching the admin interface.
+- Support for translation.
+
 ### 1.2.1 (2021-08-18)
 
 - Support for renaming files.
