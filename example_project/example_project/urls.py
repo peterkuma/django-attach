@@ -1,4 +1,5 @@
-from django.conf.urls import include, url
+from django.conf.urls import include
+from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
@@ -18,9 +19,9 @@ urlpatterns = [
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', admin.site.urls),
-
-    url(r'', include('app.urls')),
+    path('admin/django_attach/', include('django_attach.urls')),
+    path('admin/', admin.site.urls),
+    path('', include('app.urls')),
 ] \
 + staticfiles_urlpatterns() \
 + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
