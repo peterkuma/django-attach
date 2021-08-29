@@ -50,7 +50,7 @@ class Attachment(Model):
         if self.file:
             return str(self.file.name)
         else:
-            return _('Attachment object')
+            return str(_('Attachment object'))
 
     def get_absolute_url(self):
         return self.file.url
@@ -89,4 +89,4 @@ class Temporary(Model):
     modified = DateTimeField(_('modified'), auto_now=True)
 
     def __str__(self):
-        return _('Temporary object') + (' %d' % self.id)
+        return str(_('Temporary object') + (' %d' % self.id))
