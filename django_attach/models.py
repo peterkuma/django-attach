@@ -41,6 +41,7 @@ class Attachment(Model):
         blank=True
     )
     content_object = GenericForeignKey('content_type', 'object_id')
+    content_object.short_description = _('content object')
     file = FileField(_('file'), upload_to=attachment_file_upload_to)
     created = DateTimeField(_('created'), auto_now_add=True)
     modified = DateTimeField(_('modified'), auto_now=True)
@@ -49,7 +50,7 @@ class Attachment(Model):
         if self.file:
             return str(self.file.name)
         else:
-            return u'Attachment object'
+            return _('Attachment object')
 
     def get_absolute_url(self):
         return self.file.url
@@ -86,3 +87,6 @@ class Temporary(Model):
     attachments = GenericRelation(Attachment)
     created = DateTimeField(_('created'), auto_now_add=True)
     modified = DateTimeField(_('modified'), auto_now=True)
+
+    def __str__(self):
+        return _('Temporary object') + (' %d' % self.id)
