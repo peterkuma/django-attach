@@ -28,47 +28,59 @@ Installation
 
 To install the latest stable release:
 
-    pip3 install django-attach
+```sh
+pip3 install django-attach
+```
 
 To install the latest development version, download this repository and run:
 
-    python3 setup.py install
+```sh
+python3 setup.py install
+```
 
 Add the application to `settings.py`:
 
-    INSTALLED_APPS = (
-        ...
-        'django_attach.apps.DjangoAttachConfig',
-        # Your apps follow here.
-        ...
-    )
+```python
+INSTALLED_APPS = (
+    ...
+    'django_attach.apps.DjangoAttachConfig',
+    # Your apps follow here.
+    ...
+)
+```
 
 Initialize database tables and copy static files:
 
-    python3 manage.py makemigrations
-    python3 manage.py migrate
-    python3 manage.py collectstatic
+```sh
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py collectstatic
+```
 
 Add a generic relation field to your model:
 
-    from django_attach.models import Attachment
-    from django.contrib.contenttypes.fields import GenericRelation
-    ...
+```python
+from django_attach.models import Attachment
+from django.contrib.contenttypes.fields import GenericRelation
+...
 
-    class MyModel(models.Model):
-        ....
-        attachments = GenericRelation(Attachment)
+class MyModel(models.Model):
+    ....
+    attachments = GenericRelation(Attachment)
+```
 
 This is how you can access attachments in your program.
 
 In `admin.py` of your application, add **AttachmentInline** to the list of
 inlines:
 
-    from django_attach.forms import AttachmentInline
-    ...
+```python
+from django_attach.forms import AttachmentInline
+...
 
-    class MyModelAdmin(admin.ModelAdmin):
-        inlines = (AttachmentInline,)
+class MyModelAdmin(admin.ModelAdmin):
+    inlines = (AttachmentInline,)
+```
 
 In the admin, you should be able to see the attachment inline under the
 change and add pages of your model. You should also see a new application
